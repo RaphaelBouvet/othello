@@ -16,6 +16,8 @@ class Board:
         for i,row in enumerate(self.arr):
             for j,col in enumerate(row):
                 self.arr[i][j]=Pion((i,j))
+        self.score_black=0
+        self.score_white=0
         
     def printBoard(self):
         os.system("clear")
@@ -61,8 +63,23 @@ class Board:
                 return False,None
             else:
                 return True,liste_retournement
-
             
+    def valide_position_ai(self,position,couleur):
+        row=position[0]
+        col=position[1]
+        if not row in range(8) or not col in range(8): # mauvais indice
+            return False,None
+        elif self.arr[row][col].couleur!=None: # sur pion existant
+            return False,None
+        elif not self.findVoisinOppose(position,couleur): #pas de voisin de couleur oppoée
+            return False,None
+        else:
+            retournement_possible,liste_retournement = self.retournementPossible(position,couleur)
+            if not retournement_possible:
+                return False,None
+            else:
+                return True,liste_retournement
+
     def findVoisinOppose(self,position,couleur):
         liste_voisin=[]
         liste_row=[x for x in range(position[0]-1,position[0]+2)]
@@ -78,7 +95,6 @@ class Board:
         print(is_different)
         return is_different
     
-
     def retournementPossible(self,position,couleur):
         liste_retournement=[]
         row_ini=position[0]
@@ -132,7 +148,17 @@ class Board:
         placement_possible=False
         for row in self.arr:
             for pion in row:
-                placement_possible,__= self.valide_position(pion.position,couleur_joueur)
+                placement_possible,__= self.valide_position_ai(pion.position,couleur_joueur)
                 if placement_possible:
                     return False
         return True
+    
+    def score(self):
+        self.score_black=0
+        self.score_white=0
+        for row in self.arr:
+            for pion in row:
+                if pion.couleur=='Noir':
+                    self.score_black += 1
+                elif pion.couleur=='Blanc':
+                    self.score_white += 1
