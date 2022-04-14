@@ -3,7 +3,6 @@
 """
 Created on Thu Apr 14 09:00:21 2022
 
-@author: raphael.bouvet@Digital-Grenoble.local
 """
 
 class Color:

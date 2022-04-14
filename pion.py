@@ -3,7 +3,6 @@
 """
 Created on Thu Apr 14 08:59:28 2022
 
-@author: raphael.bouvet@Digital-Grenoble.local
 """
 
 from color import Color

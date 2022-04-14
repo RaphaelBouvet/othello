@@ -3,19 +3,21 @@
 """
 Created on Thu Apr 14 09:51:20 2022
 
-@author: raphael.bouvet@Digital-Grenoble.local
 """
 import random
 
 class Joueur:
-    def __init__(self,nom,couleur,AI=False,mode='random'):
+    def __init__(self,nom,couleur,AI=False,AI_type='random'):
         self.couleur=couleur
         self.nom=nom
         self.AI=AI
-        self.AI_mode=mode
+        self.AI_type=AI_type
+        
+    def creationAdversaire(self):
+        self.adversaire=Joueur("Adversaire",AI=True,AI_type=self.AI_type)
         
     def Choice(self,board):
-        if self.AI_mode=='random':
+        if self.AI_type=='random':
             return self.randomChoice(board)
         else:
             return self.best_choice(board)
@@ -61,4 +63,6 @@ class Joueur:
                     score_max_couleur=white
                     best_position=position
         return best_position
+    
+
             

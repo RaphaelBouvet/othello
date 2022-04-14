@@ -3,7 +3,6 @@
 """
 Created on Thu Apr 14 09:01:33 2022
 
-@author: raphael.bouvet@Digital-Grenoble.local
 """
 
 from pion import Pion
@@ -21,10 +20,10 @@ class Board:
         
     def printBoard(self):
         os.system("clear")
-        f_line=' 1 2 3 4 5 6 7 8'
+        f_line='  1 2 3 4 5 6 7 8'
         print(f_line)
         for i,row in enumerate(self.arr):
-            line = ""+str(i+1)
+            line ="" + str(i+1)+ " "
             for j,pion in enumerate(row):
                 line += pion.show() + " "
             print(line)
@@ -96,6 +95,8 @@ class Board:
         return is_different
     
     def retournementPossible(self,position,couleur):
+        
+        
         liste_retournement=[]
         row_ini=position[0]
         col_ini=position[1]
