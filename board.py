@@ -45,7 +45,7 @@ class Board:
     def valide_position(self,position,couleur):
         row=position[0]
         col=position[1]
-        if not (row in range(8) or col in range(8)): # mauvais indice
+        if not row in range(8) or not col in range(8): # mauvais indice
             print(f"{Color.RED} Mauvaise position (Indices) Merci de rentrer des positions valides {Color.END}")
             return False,None
         elif self.arr[row][col].couleur!=None: # sur pion existant
@@ -127,3 +127,12 @@ class Board:
         row=position[0]
         col=position[1]
         return self.arr[row][col]
+    
+    def checkBoardsolved(self,couleur_joueur):
+        placement_possible=False
+        for row in self.arr:
+            for pion in row:
+                placement_possible,__= self.valide_position(pion.position,couleur_joueur)
+                if placement_possible:
+                    return False
+        return True

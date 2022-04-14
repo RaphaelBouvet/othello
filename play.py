@@ -26,12 +26,12 @@ class Partie:
         else:
             exit()
         
-        
     def partie(self):
         tour=0
         self.board.printBoard()
         while not self.findepartie:
             couleur_joueur=self.detJoueur(tour)
+            self.checkFinDePartie
             tour_valide=False
             while not tour_valide:
                 self.board.printBoard()
@@ -42,6 +42,8 @@ class Partie:
                 col=int(input())
                 tour_valide = self.board.placePion((row-1,col-1), couleur_joueur)
             tour += 1
+            self.checkFinDePartie(self.detJoueur(tour))
+            
             
     def detJoueur(self,tour):
         if tour%2==0:
@@ -49,9 +51,8 @@ class Partie:
         else:
             return 'Blanc'
         
-    def checkFinDePartie(self):
-        
-        self.findepartie==True
+    def checkFinDePartie(self,couleur_joueur):
+        self.findepartie=self.board.checkBoardsolved(couleur_joueur)
         
 partie=Partie()
 partie.menu()
