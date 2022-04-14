@@ -8,13 +8,17 @@ Created on Thu Apr 14 09:51:20 2022
 import random
 
 class Joueur:
-    def __init__(self,nom,couleur,AI=False):
+    def __init__(self,nom,couleur,AI=False,mode='random'):
         self.couleur=couleur
         self.nom=nom
         self.AI=AI
+        self.AI_mode=mode
         
     def Choice(self,board):
-        return self.randomChoice(board)
+        if self.AI_mode=='random':
+            return self.randomChoice(board)
+        else:
+            return self.best_choice(board)
     
     def randomChoice(self,board):
         self.current_board=board
@@ -25,8 +29,36 @@ class Joueur:
                 pos_valide,__= self.current_board.valide_position_ai(pion.position,self.couleur)
                 if pos_valide:
                     liste_pos_valide.append(pion.position)
-                    print(f"position valides ? {pion.position}")
         #choose position at random
         position_choisie=random.choice(liste_pos_valide)
         return position_choisie
         
+    def best_choice(self,board):
+        current_board=board
+        liste_pos_valide=[]
+        for row in current_board.arr:
+            for pion in row:
+                pos_valide,__= current_board.valide_position_ai(pion.position,self.couleur)
+                if pos_valide:
+                    liste_pos_valide.append(pion.position)
+        simulated_board=[board for position in liste_pos_valide]
+        liste_score=[]
+        for board,pos in zip(simulated_board,liste_pos_valide):
+            board.placePion(pos,self.couleur)
+            board.score()
+            black=board.score_black
+            white=board.score_white
+            liste_score.append(pos,black,white)
+        for (position,black,white) in liste_score:
+            score_max_couleur=0
+            best_position=0
+            if self.couleur=='Blanc':
+                if white>=score_max_couleur:
+                    score_max_couleur=white
+                    best_position=position
+            else:
+                if black>=score_max_couleur:
+                    score_max_couleur=white
+                    best_position=position
+        return best_position
+            

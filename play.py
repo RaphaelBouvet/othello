@@ -36,8 +36,8 @@ class Partie:
         self.addJoueur(joueur_restant)
     
     def initAuto(self):
-        new_joueur=Joueur('AI_1','Noir',True)
-        joueur_restant=Joueur('AI_2','Blanc',True)
+        new_joueur=Joueur('AI_random','Noir',True)
+        joueur_restant=Joueur('AI_best','Blanc',True,"best")
         self.addJoueur(new_joueur)
         self.addJoueur(joueur_restant)
 
