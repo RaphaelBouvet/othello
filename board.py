@@ -8,6 +8,7 @@ Created on Thu Apr 14 09:01:33 2022
 from pion import Pion
 from color import Color
 import os
+import copy
 
 class Board:
     def __init__(self):
@@ -18,15 +19,18 @@ class Board:
         self.score_black=0
         self.score_white=0
         
-    def printBoard(self):
-        os.system("clear")
-        f_line='  1 2 3 4 5 6 7 8'
-        print(f_line)
-        for i,row in enumerate(self.arr):
-            line ="" + str(i+1)+ " "
-            for j,pion in enumerate(row):
-                line += pion.show() + " "
-            print(line)
+    def printBoard(self,afficher=True):
+        if not afficher:
+            pass
+        else:
+            os.system("clear")
+            f_line='  1 2 3 4 5 6 7 8'
+            print(f_line)
+            for i,row in enumerate(self.arr):
+                line ="" + str(i+1)+ " "
+                for j,pion in enumerate(row):
+                    line += pion.show() + " "
+                print(line)
                 
     def placePion(self,position,couleur,start=False):
         row=position[0]
@@ -149,7 +153,7 @@ class Board:
         placement_possible=False
         for row in self.arr:
             for pion in row:
-                placement_possible,__= self.valide_position_ai(pion.position,couleur_joueur)
+                placement_possible,useless= self.valide_position_ai(pion.position,couleur_joueur)
                 if placement_possible:
                     return False
         return True
@@ -163,3 +167,6 @@ class Board:
                     self.score_black += 1
                 elif pion.couleur=='Blanc':
                     self.score_white += 1
+    
+    def duplicate(self):
+        return copy.deepcopy(self)

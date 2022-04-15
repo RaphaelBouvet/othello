@@ -7,6 +7,7 @@ Created on Thu Apr 14 13:55:55 2022
 from play import Partie
 import matplotlib.pyplot as plt
 
+
 class Manager:
     
     def menu(self):
@@ -55,12 +56,12 @@ class Manager:
         middle=round(nb_simul/2)
         for i in range(0,middle):
             partie=Partie(0,(AI_1,AI_2))
-            s_1,s_2=partie.partie()
+            s_1,s_2=partie.partie(True)
             score_AI_1 += s_1
             score_AI_2 += s_2
         for i in range(middle,nb_simul):
             partie=Partie(0,(AI_1,AI_2))
-            s_1,s_2=partie.partie()
+            s_1,s_2=partie.partie(True)
             score_AI_1 += s_1
             score_AI_2 += s_2
         print(f"Pour l'algo {AI_1} : score moyen {score_AI_1/nb_simul}")

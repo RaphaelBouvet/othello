@@ -5,6 +5,7 @@ Created on Thu Apr 14 09:51:20 2022
 
 """
 import random
+import copy
 
 class Joueur:
     def __init__(self,nom,couleur,AI=False,AI_type='random'):
@@ -23,12 +24,12 @@ class Joueur:
             return self.best_choice(board)
     
     def randomChoice(self,board):
-        self.current_board=board
+        current_board=board
         # check valid position 
         liste_pos_valide=[]
-        for row in self.current_board.arr:
+        for row in current_board.arr:
             for pion in row:
-                pos_valide,__= self.current_board.valide_position_ai(pion.position,self.couleur)
+                pos_valide,__= current_board.valide_position_ai(pion.position,self.couleur)
                 if pos_valide:
                     liste_pos_valide.append(pion.position)
         #choose position at random
@@ -43,14 +44,14 @@ class Joueur:
                 pos_valide,__= current_board.valide_position_ai(pion.position,self.couleur)
                 if pos_valide:
                     liste_pos_valide.append(pion.position)
-        simulated_board=[board for position in liste_pos_valide]
+        simulated_board=[current_board.duplicate() for position in liste_pos_valide]
         liste_score=[]
-        for board,pos in zip(simulated_board,liste_pos_valide):
-            board.placePion(pos,self.couleur)
-            board.score()
-            black=board.score_black
-            white=board.score_white
-            liste_score.append(pos,black,white)
+        for new_board,pos in zip(simulated_board,liste_pos_valide):
+            new_board.placePion(pos,self.couleur)
+            new_board.score()
+            black=new_board.score_black
+            white=new_board.score_white
+            liste_score.append((pos,black,white))
         for (position,black,white) in liste_score:
             score_max_couleur=0
             best_position=0
