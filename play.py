@@ -99,17 +99,17 @@ class Partie:
     def partie(self,afficher=True):
         tour=0
         self.board.printBoard(afficher)
-        tour_sans_jeux=0
-        while tour_sans_jeux<2:
+        tour_sans_coups=0
+        while tour_sans_coups<2:
             joueur_actuel=self.detJoueur(tour)
             self.board.printBoard(afficher)
             coup_pas_possible = self.tourJoueur(joueur_actuel)
             if coup_pas_possible:
-                tour_sans_jeux +=1
+                tour_sans_coups +=1
             else:
-                tour_sans_jeux = 0
+                tour_sans_coups = 0
             tour += 1
-        sc_black,sc_white = self.finPartie()
+        sc_black,sc_white = self.finPartie(afficher)
         return self.board.score_black,self.board.score_white
 
             
@@ -119,16 +119,20 @@ class Partie:
         else:
             return self.listeJoueurs[1]
         
-    def checkFinDePartie(self,joueur):
-        self.findepartie=self.board.checkBoardsolved(joueur.couleur)
+    # def checkFinDePartie(self,joueur):
+    #     self.findepartie=self.board.checkBoardsolved(joueur.couleur)
         
-    def finPartie(self):
-        self.board.printBoard()
+    def finPartie(self,afficher):
         self.board.score()
-        print("Fin de la Partie")
-        print(f"Score Noir : {self.board.score_black}")
-        print(f"Score Blanc : {self.board.score_white}")
-        return self.board.score_black,self.board.score_white
+        if not afficher:
+            return self.board.score_black,self.board.score_white
+        else:
+            self.board.printBoard()
+            print("Fin de la Partie")
+            print(f"Score Noir : {self.board.score_black}")
+            print(f"Score Blanc : {self.board.score_white}")
+            return self.board.score_black,self.board.score_white
+
         
 # partie=Partie()
 # partie.menu()

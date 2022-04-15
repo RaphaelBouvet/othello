@@ -95,7 +95,6 @@ class Board:
         for voisin in liste_voisin:
             if voisin.couleur!=couleur and voisin.couleur!=None:
                 is_different=True
-        print(is_different)
         return is_different
     
     def retournementPossible(self,position,couleur):

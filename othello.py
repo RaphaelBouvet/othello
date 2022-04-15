@@ -5,8 +5,7 @@ Created on Thu Apr 14 13:55:55 2022
 """
 
 from play import Partie
-import matplotlib.pyplot as plt
-
+from alive_progress import alive_bar
 
 class Manager:
     
@@ -54,16 +53,20 @@ class Manager:
         score_AI_1=0
         score_AI_2=0
         middle=round(nb_simul/2)
-        for i in range(0,middle):
-            partie=Partie(0,(AI_1,AI_2))
-            s_1,s_2=partie.partie(True)
-            score_AI_1 += s_1
-            score_AI_2 += s_2
-        for i in range(middle,nb_simul):
-            partie=Partie(0,(AI_1,AI_2))
-            s_1,s_2=partie.partie(True)
-            score_AI_1 += s_1
-            score_AI_2 += s_2
+        with alive_bar(middle) as bar:
+            for i in range(0,middle):
+                partie=Partie(0,(AI_1,AI_2))
+                s_1,s_2=partie.partie(False)
+                score_AI_1 += s_1
+                score_AI_2 += s_2
+                bar()
+        with alive_bar(middle) as bar:
+            for i in range(middle,nb_simul):
+                partie=Partie(0,(AI_1,AI_2))
+                s_1,s_2=partie.partie(False)
+                score_AI_1 += s_1
+                score_AI_2 += s_2
+                bar()
         print(f"Pour l'algo {AI_1} : score moyen {score_AI_1/nb_simul}")
         print(f"Pour l'algo {AI_2} : score moyen {score_AI_2/nb_simul}")
                 
