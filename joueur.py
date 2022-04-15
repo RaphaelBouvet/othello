@@ -6,7 +6,6 @@ Created on Thu Apr 14 09:51:20 2022
 """
 import random
 import copy
-# from choiceArr import ChoiceArr
 
 class Joueur:
     def __init__(self,nom,couleur,AI=False,AI_type='random'):

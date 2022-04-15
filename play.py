@@ -54,31 +54,6 @@ class Partie:
         else:
             self.listeJoueurs[1]=joueur
 
-    # def partie(self,afficher=True):
-    #     tour=0
-    #     self.board.printBoard(afficher)
-    #     while not self.findepartie:
-    #         joueur_actuel=self.detJoueur(tour)
-    #         self.checkFinDePartie
-    #         tour_valide=False
-    #         while not tour_valide:
-    #             self.board.printBoard(afficher)
-    #             print(f"Joueur {joueur_actuel.nom} {joueur_actuel.couleur}: A toi de jouer")
-    #             if not joueur_actuel.AI:
-    #                 print("Ligne :")
-    #                 row=int(input())
-    #                 print("Colonne :")
-    #                 col=int(input())
-    #                 tour_valide = self.board.placePion((row-1,col-1), joueur_actuel.couleur)
-    #             else:
-    #                 row,col=joueur_actuel.randomChoice(self.board)
-    #                 print(f" position testée {row} {col}")
-    #                 tour_valide = self.board.placePion((row,col), joueur_actuel.couleur)
-    #         tour += 1
-    #         self.checkFinDePartie(self.detJoueur(tour))
-    #     sc_black,sc_white = self.finPartie()
-    #     return self.board.score_black,self.board.score_white
-    
     def tourJoueur(self,joueur):
         coup_pas_possible=self.board.checkBoardsolved(joueur.couleur)
         if not coup_pas_possible:
