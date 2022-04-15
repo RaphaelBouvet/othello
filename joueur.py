@@ -6,6 +6,7 @@ Created on Thu Apr 14 09:51:20 2022
 """
 import random
 import copy
+# from choiceArr import ChoiceArr
 
 class Joueur:
     def __init__(self,nom,couleur,AI=False,AI_type='random'):
@@ -15,7 +16,8 @@ class Joueur:
         self.AI_type=AI_type
         
     def creationAdversaire(self):
-        self.adversaire=Joueur("Adversaire",AI=True,AI_type=self.AI_type)
+        couleur_adverse='Noir' if self.couleur=='Blanc' else 'Blanc'
+        self.adversaire=Joueur("Adversaire",couleur_adverse,AI=True,AI_type='random')
         
     def Choice(self,board):
         if self.AI_type=='random':
@@ -37,7 +39,7 @@ class Joueur:
         return position_choisie
         
     def best_choice(self,board):
-        current_board=board
+        current_board=board.duplicate()
         liste_pos_valide=[]
         for row in current_board.arr:
             for pion in row:
@@ -65,5 +67,9 @@ class Joueur:
                     best_position=position
         return best_position
     
+    # def tree_board():
+
+        
+        
 
             
